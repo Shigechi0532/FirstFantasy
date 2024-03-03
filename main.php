@@ -4,7 +4,7 @@ require_once('./classes/Human.php');
 require_once('./classes/Enemy.php');
 
 //インスタンス化
-$brave_man = new Human();
+$brave_man = new Brave();
 $goblin = new Enemy();
 
 $brave_man->name = "勇者";

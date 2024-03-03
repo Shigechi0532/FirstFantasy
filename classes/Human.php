@@ -2,9 +2,9 @@
 class Human
 {
     const MAX_HITPOINT = 100; //最大HPの定数
-    public $name;
-    public $hitPoint = 100;
-    public $attackPoint = 20;
+    private $name;
+    private $hitPoint = 100;
+    private $attackPoint = 20;
 
     public function doAttack($enemy)
     {
