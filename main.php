@@ -2,33 +2,31 @@
 //ファイルのロード
 require_once('./classes/Human.php');
 require_once('./classes/Enemy.php');
+require_once('./classes/Brave.php');
 
 //インスタンス化
-$brave_man = new Brave();
-$goblin = new Enemy();
-
-$brave_man->name = "勇者";
-$goblin->name = "ゴブリン";
+$braver = new Brave("勇者");
+$goblin = new Enemy("ゴブリン");
 
 $turn = 1;
 
-while($brave_man->hitPoint > 0 && $goblin->hitPoint > 0){
+while($braver->getHitPoint() > 0 && $goblin->getHitPoint() > 0){
     echo "***$turn ターン目 ***\n\n";
     //ステータスの表示
-    echo $brave_man->name .":" .$brave_man->hitPoint ,"/" .$brave_man::MAX_HITPOINT ."\n";
-    echo $goblin->name .":" .$goblin->hitPoint ,"/" .$goblin::MAX_HITPOINT ."\n";
+    echo $braver->getName() .":" .$braver->getHitPoint() ,"/" .$braver::MAX_HITPOINT ."\n";
+    echo $goblin->getName() .":" .$goblin->getHitPoint() ,"/" .$goblin::MAX_HITPOINT ."\n";
     echo "\n";
 
     //攻撃
-    $brave_man->doAttack(($goblin));
+    $braver->doAttack(($goblin));
     echo "\n";
-    $goblin->doAttack($brave_man);
+    $goblin->doAttack($braver);
     echo "\n";
 
     $turn++;
 }
 
 echo "★★★ 戦闘終了 ★★★\n\n";
-echo $brave_man->name .":" .$brave_man->hitPoint ."/" .$brave_man::MAX_HITPOINT ."\n";
-echo $goblin->name .":" .$goblin->hitPoint ."/" .$goblin::MAX_HITPOINT ."\n";
+echo $braver->getName() .":" .$braver->getHitPoint() ."/" .$braver::MAX_HITPOINT ."\n";
+echo $goblin->getName() .":" .$goblin->getHitPoint() ."/" .$goblin::MAX_HITPOINT ."\n";
 ?>
