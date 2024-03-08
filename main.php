@@ -29,4 +29,3 @@ while($braver->getHitPoint() > 0 && $goblin->getHitPoint() > 0){
 echo "★★★ 戦闘終了 ★★★\n\n";
 echo $braver->getName() .":" .$braver->getHitPoint() ."/" .$braver::MAX_HITPOINT ."\n";
 echo $goblin->getName() .":" .$goblin->getHitPoint() ."/" .$goblin::MAX_HITPOINT ."\n";
-?>
