@@ -1,4 +1,4 @@
-<?php 
+<?php
 class Enemy
 {
     const MAX_HITPOINT = 50;
@@ -6,9 +6,10 @@ class Enemy
     private $hitPoint = 50;
     private $attackPoint = 10;
 
-    public function __construct($name)
+    public function __construct($name,$attackPoint)
     {
         $this->name = $name;
+        $this->attackPoint = $attackPoint;
     }
 
     public function getName()
@@ -26,8 +27,16 @@ class Enemy
         return $this->attackPoint;
     }
 
-    public function doAttack($human)
+    public function doAttack($humans)
     {
+        //チェック1:自身のHPが0かどうか
+        if($this->getHitPoint() <= 0){
+            return false;
+        }
+
+        $humanIndex = rand(0, count($humans) -1);
+        $human = $humans[$humanIndex];
+
         echo "『".$this->getName() ."』の攻撃!\n";
         echo "【".$human->getName() ."】に" .$this->attackPoint."のダメージ!\n";
         $human->tookDamage($this->attackPoint);
