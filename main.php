@@ -21,33 +21,22 @@ $enemies[] = new Enemy('ゴブリンC',30);
 $turn = 1;
 $isFinishFlg = false;
 
-$messageobj = new Message;
+$messageObj = new Message;
 
 while(!$isFinishFlg){
     echo "***$turn ターン目 ***\n\n";
-    
+
     //仲間の表示
-    $messageobj->displayStatusMessage($members);
+    $messageObj->displayStatusMessage($members);
 
     //敵の表示
-    $messageobj->displayStatusMessage($enemies);
+    $messageObj->displayStatusMessage($enemies);
 
-    //攻撃
-    foreach($members as $member){
-        //白魔導士の場合、味方のオブジェクトにも渡す
-        if(get_class($member) == "WhiteMage"){
-            $member->doAttackWhiteMage($enemies,$members);
-        }else{
-            $member->doAttack($enemies);
-        }
-        echo "\n";
-    }
-    echo "\n";
+    //仲間の攻撃
+    $messageObj->displayAttackMessage($members,$enemies);
 
-    foreach($enemies as $enemy){
-        $enemy->doAttack($members);
-        echo "\n";
-    }
+    //敵の攻撃
+    $messageObj->displayAttackMessage($enemies,$members);
 
     //仲間の全滅チェック
     $deathCut = 0;
@@ -85,7 +74,7 @@ while(!$isFinishFlg){
 echo "★★★ 戦闘終了 ★★★\n\n";
 
 //仲間の表示
-$messageobj->displayStatusMessage($members);
+$messageObj->displayStatusMessage($members);
 
 //敵の表示
-$messageobj->displayStatusMessage($enemies);
+$messageObj->displayStatusMessage($enemies);
