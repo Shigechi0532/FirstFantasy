@@ -47,11 +47,26 @@
         public function recoveryDamage($heal, $target)
         {
             $this->hitPoint += $heal;
-            //最大血を超えて回復しない
+            //最大値を超えて回復しない
             if($this->hitPoint > $target::MAX_HITPOINT){
                 $this->hitPoint = $target::MAX_HITPOINT;
             }
         }
+
+                //攻撃するメソッド
+                public function doAttack($targets)
+                {
+                    if(!$this->isEnableAttack($targets)){
+                        return false;
+                }
+                //ターゲットの決定
+                $target = $this->selectTarget($targets);
+        
+                echo "『". $this->name. "』の攻撃！\n";
+                echo "【". $target->getName(). "】に". $this->attackPoint. "のダメージ\n";
+                $target->tookDamage($this->attackPoint);
+                return true;
+                }
 
         //攻撃できるかどうかチェック
         public function isEnableAttack($targets)
@@ -79,4 +94,5 @@
             }
             return $target;
         }
+
     }

@@ -25,6 +25,6 @@ class Message
             }
             $attackResult = false;
         }
-        echo "\N";
+        echo "\n";
     }
 }

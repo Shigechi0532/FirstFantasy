@@ -8,25 +8,27 @@ class WhiteMage extends Human
 
     public function __construct($name)
     {
-        parent::__construct($name, $this->hitPoint, $this->attackPoint);
+        parent::__construct($name, $this->hitPoint, $this->attackPoint, $this->intelligence);
     }
 
-    public function doAttackWhiteMage($enemies,$humans)
+    public function doAttackWhiteMage($enemies,$members)
     {
-        //チェック1:自身のHPが0かどうか
-        if($this->getHitPoint() <= 0){
+        //自分のHPが0以上か。敵のHPが0以上かなどをチェックするメソッド
+        if(!$this->isEnableAttack($enemies)){
             return false;
         }
 
-        $humanIndex = rand(0, count($humans) -1);
-        $human = $humans[$humanIndex];
-
         if(rand(1,2) === 1){
+            //ターゲットの決定
+            $member = $this->selectTarget($members);
+
             echo "『" .$this->getName() ."』のスキルが発動した！\n";
             echo "『ケアル』！！\n";
-            echo $human->getName() ."のHPを" .$this->intelligence * 1.5 ."回復！\n";
-            $human->recoveryDamage($this->intelligence * 1.5, $human);
+            echo $member->getName() ."のHPを" .$this->intelligence * 1.5 ."回復！\n";
+            $member->recoveryDamage($this->intelligence * 1.5, $member);
         }else{
+            //ターゲットの決定
+            $enemy = $this->selectTarget($enemies);
             parent::doAttack($enemies);
         }
         return true;
