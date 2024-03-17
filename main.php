@@ -1,48 +1,33 @@
 <?php
 //ファイルのロード
 require_once('./lib/Loader.php');
+require_once('./lib/Utility.php');
 
 //オートロード
 $loader = new loader();
 //classesフォルダの中身をロード対象ディレクトリとして登録
 $loader->regDirectory(__DIR__ . '/classes');
+$loader->regDirectory(__DIR__ . '/classes/constants');
 $loader->register();
 
 //インスタンス化
 $members = array();
-$members[] = new Brave('勇者');
-$members[] = new WhiteMage('白魔導士');
-$members[] = new BlackMage('黒魔導士');
+$members[] = Brave::getInstance(CharacterName::Brave);
+$members[] = Brave::getInstance(CharacterName::WhiteMage);
+$members[] = Brave::getInstance(CharacterName::BlackMage);
 
 $enemies = array();
-$enemies[] = new Enemy('ゴブリンA',20);
-$enemies[] = new Enemy('ゴブリンB',25);
-$enemies[] = new Enemy('ゴブリンC',30);
+$enemies[] = new Enemy(EnemyName::GOBLIN_A,20);
+$enemies[] = new Enemy(EnemyName::GOBLIN_B,25);
+$enemies[] = new Enemy(EnemyName::GOBLIN_C,30);
 
 $turn = 1;
 $isFinishFlg = false;
 
 $messageObj = new Message;
 
-//終了条件の設定
-function isFinish($objects)
-{
-    $deathCut = 0; //HPが0以下の仲間の数
-    foreach ($objects as $object) {
-        //1人でもHPが0を超えていたらfalseを返す
-        if($object->getHitPoint() > 0){
-            return false;
-        }
-        $deathCut++;
-    }
-    //仲間の数が死亡数(HPが0以下の数)と同じであればtrueを返す
-    if($deathCut === count($objects)){
-        return true;
-    }
-}
-
 while(!$isFinishFlg){
-    echo "***$turn ターン目 ***\n\n";
+    echo "*** $turn ターン目 ***\n\n";
 
     //仲間の表示
     $messageObj->displayStatusMessage($members);
@@ -56,7 +41,7 @@ while(!$isFinishFlg){
     //敵の攻撃
     $messageObj->displayAttackMessage($enemies,$members);
 
-    //戦闘終了条件のチェック　仲間全員のHPが0 または、敵全員のHPが0
+    //戦闘終了条件のチェック 仲間全員のHPが0 または、敵全員のHPが0
     $isFinishFlg = isFinish($members);
     if($isFinishFlg){
         $message = "GAME OVER ....\n\n";

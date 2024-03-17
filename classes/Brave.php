@@ -1,13 +1,24 @@
-<?php 
+<?php
 class Brave extends Human
 {
     const MAX_HITPOINT = 120;
     private $hitPoint = self::MAX_HITPOINT;
     private $attackPoint = 30;
 
+    private static $instance;
+
     public function __construct($name)
     {
         parent::__construct($name,$this->hitPoint,$this->attackPoint);
+    }
+
+    //シングルトンで常にインスタンスは一つしか生成しない。
+    public static function getInstance($name)
+    {
+        if(empty(self::$instance)){
+            self::$instance = new Brave($name);
+        }
+        return self::$instance;
     }
 
     public function doAttack($enemies)

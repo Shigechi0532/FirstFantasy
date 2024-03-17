@@ -6,10 +6,21 @@ class WhiteMage extends Human
     private $attackPoint = 10;
     private $intelligence = 30;
 
+    private static $instance;
+
     public function __construct($name)
     {
         parent::__construct($name, $this->hitPoint, $this->attackPoint, $this->intelligence);
     }
+
+        //シングルトンで常にインスタンスは一つしか生成しない。
+        public static function getInstance($name)
+        {
+            if(empty(self::$instance)){
+                self::$instance = new Brave($name);
+            }
+            return self::$instance;
+        }
 
     public function doAttackWhiteMage($enemies,$members)
     {
